@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hooked.AI</title>
+  <link rel="icon" type="image/png" href="Hooked.AI.png">
+
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      height: 100vh;
+      font-family: Arial;
+      background: #0f0f0f;
+      color: white;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 220px;
+      right: 0;
+      height: 50px;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #222;
+      z-index: 10;
+    }
+
+    .topbar-center {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .topbar-center img {
+      width: 28px;
+      height: 28px;
+    }
+
+    .topbar-right {
+      position: absolute;
+      right: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logged {
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .login-btn {
+      padding: 6px 10px;
+      background: #3b82f6;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    .chat-item {
+      padding: 10px;
+      margin: 5px 0;
+      background: #222;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 5px;
+    }
+
+    .chat-name {
+      flex: 1;
+      cursor: pointer;
+    }
+
+    .chat-actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    .chat-btn {
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 4px 6px;
+      cursor: pointer;
+    }
+
+    .new-chat {
+      margin-top: auto;
+      padding: 10px;
+      background: #3b82f6;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin-top: 50px;
+    }
+
+    .chat-box {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    .welcome {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #888;
+      text-align: center;
+    }
+
+    .welcome img {
+      width: 70px;
+      margin-bottom: 10px;
+    }
+
+    .input-area {
+      display: flex;
+      padding: 10px;
+      background: #111;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: #222;
+      color: white;
+    }
+
+    button {
+      margin-left: 10px;
+      padding: 10px;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .msg-row {
+      display: flex;
+      align-items: flex-start;
+      margin: 12px 0;
+      gap: 8px;
+    }
+
+    .msg-row.user {
+      justify-content: flex-end;
+    }
+
+    .msg-row.bot {
+      justify-content: flex-start;
+    }
+
+    .msg-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .msg {
+      padding: 10px 14px;
+      border-radius: 14px;
+      max-width: 70%;
+      white-space: pre-wrap;
+    }
+
+    .msg.user {
+      background: #3b82f6;
+    }
+
+    .msg.bot {
+      background: #333;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity:0.2; }
+      50% { opacity:1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h3>Chats</h3>
+  <div id="chatList"></div>
+  <div class="new-chat" onclick="newChat()">+ New Chat</div>
+</div>
+
+<div class="topbar">
+  <div class="topbar-center">
+    <img src="Hooked.AI.png">
+    <span id="chatTitle">Hooked.AI</span>
+  </div>
+
+  <div class="topbar-right">
+    <div class="logged" id="loggedUser"></div>
+    <button class="login-btn" onclick="login()">Login</button>
+  </div>
+</div>
+
+<div class="chat-container">
+  <div id="chat" class="chat-box">
+    <div class="welcome" id="welcomeScreen">
+      <img src="Hooked.AI.png">
+      <h2>Tell us what you want to get hooked on.</h2>
+      <p>Ask anything. Start a new idea.</p>
+    </div>
+  </div>
+
+  <div class="input-area">
+    <input
+      id="msg"
+      placeholder="Message Hooked.AI..."
+      onkeydown="if(event.key==='Enter') send()"
+    >
+    <button onclick="send()">Send</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
