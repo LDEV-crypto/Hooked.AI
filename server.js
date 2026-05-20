@@ -39,7 +39,7 @@ const GOOGLE_CLIENT_SECRET =
 const oauthClient = new OAuth2Client(
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
-  "http://localhost:3000/auth/google/callback"
+  process.env.GOOGLE_REDIRECT_URI
 );
 
 app.use(express.json());
